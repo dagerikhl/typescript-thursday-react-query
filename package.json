@@ -6,7 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "mock": "node src/_workshop-internals/scripts/generate-mock-data.js",
+    "postinstall": "yarn mock"
   },
   "dependencies": {
     "axios": "0.27.2",
@@ -16,6 +18,7 @@
     "react-query": "3.39.2"
   },
   "devDependencies": {
+    "@faker-js/faker": "7.5.0",
     "@types/node": "18.7.18",
     "@types/react": "18.0.20",
     "@types/react-dom": "18.0.6",
