@@ -16,9 +16,34 @@ const handler = async (
     return;
   }
 
-  res
-    .status(200)
-    .json(require("../../src/_workshop-internals/data/applications.json"));
+  let result: IApplication[] = require("../../src/_workshop-internals/data/applications.json");
+
+  if ("sort" in req.query) {
+    result = result.sort((a, b) => {
+      switch (req.query.sort) {
+        case "namespace":
+          return a.namespace.localeCompare(b.namespace);
+        case "name":
+          return a.name.localeCompare(b.name);
+        case "state":
+          return a.state.localeCompare(b.state);
+      }
+
+      return 0;
+    });
+  }
+
+  if ("index" in req.query && "limit" in req.query) {
+    const index = +req.query.index!;
+    const limit = +req.query.limit!;
+
+    const start = index * limit;
+    const end = start + limit;
+
+    result = result.slice(start, end);
+  }
+
+  res.status(200).json(result);
 };
 
 export default handler;

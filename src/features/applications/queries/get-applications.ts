@@ -33,5 +33,5 @@ export const getPaginatedApplications = async ({
 export const useGetPaginatedApplications = (index: number, limit: number) =>
   useQuery<IApplication[], Error, IApplication[], GetPaginatedKey>(
     APPLICATIONS_KEYS.GetPaginated(index, limit),
-    getApplications
+    getPaginatedApplications
   );
