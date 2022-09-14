@@ -1,0 +1,40 @@
+.container {
+  display: grid;
+  grid-template-columns: auto auto;
+  grid-template-rows: 1fr 1fr auto;
+  grid-template-areas:
+    "heading state"
+    "branches branches"
+    "deployments deployments";
+  gap: 1rem;
+  padding: 1rem;
+  background: #191919;
+  border: 1px solid gray;
+  border-radius: 4px;
+}
+
+.heading {
+  grid-area: heading;
+}
+
+.state {
+  grid-area: state;
+  justify-self: end;
+  text-transform: uppercase;
+}
+
+.branches {
+  grid-area: branches;
+  justify-self: end;
+}
+
+.deployments {
+  grid-area: deployments;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.deployment::before {
+  content: "- ";
+}

@@ -1,29 +1,25 @@
 import { NextPage } from "next";
-import { useEffect, useState } from "react";
-import { IApplication } from "../../src/features/applications/types/IApplication";
+import { Pagination } from "../../src/common/components/Pagination";
+import { usePagination } from "../../src/common/hooks/usePagination";
+import { Application } from "../../src/features/applications/components/Application";
+import { useGetApplications } from "../../src/features/applications/queries/get-applications";
+import styles from "./Applications.module.css";
 
 const Applications: NextPage = () => {
-  // TODO Rewrite to use ReactQuery
-  const [isLoading, setIsLoading] = useState(false);
-  const [applications, setApplications] = useState<IApplication[] | undefined>(
-    undefined
-  );
-  const [error, setError] = useState<Error | undefined>(undefined);
+  const pagination = usePagination();
 
+  const api = useGetApplications();
+  /*
+  // This is what we would have needed to impl. this ourselves:
+  const [isLoading, setIsLoading] = useState(false);
+  const [applications, setApplications] = useState<IApplication[] | undefined>(undefined);
+  const [error, setError] = useState<Error | undefined>(undefined);
   useEffect(() => {
     setIsLoading(true);
-
     const getApplications = async () =>
-      fetch("/api/applications")
+      axios.get("/api/applications")
         .then((response) => {
-          if (response.status >= 400) {
-            throw new Error(`${response.status} ${response.statusText}`);
-          } else {
-            return response.json();
-          }
-        })
-        .then((response: IApplication[]) => {
-          setApplications(response);
+          setApplications(response.data as IApplication[]);
         })
         .catch((error) => {
           setError(error);
@@ -31,26 +27,36 @@ const Applications: NextPage = () => {
         .finally(() => {
           setIsLoading(false);
         });
-
     getApplications();
   }, []);
+  const api = { isLoading, isError: !!error, error, data: applications };
+  */
 
   return (
     <div>
-      <p>Applications:</p>
+      <h1>Applications</h1>
 
-      {isLoading && "Loading..."}
-      {!isLoading && error && error.message}
-      {!isLoading &&
-        !error &&
-        applications &&
-        applications.length === 0 &&
-        "No applications."}
-      {!isLoading && !error && applications && applications.length > 0 && (
-        <pre>
-          <code>{JSON.stringify(applications, null, 2)}</code>
-        </pre>
-      )}
+      <Pagination {...pagination} />
+
+      <div className={styles.applications}>
+        {api.isLoading && "Loading..."}
+        {!api.isLoading && api.isError && (
+          <div>
+            <p>ERROR:</p>
+            <p>{api.error.message}</p>
+          </div>
+        )}
+        {!api.isLoading &&
+          api.data &&
+          api.data.length === 0 &&
+          "No applications."}
+        {!api.isLoading &&
+          api.data &&
+          api.data.length > 0 &&
+          api.data.map((application) => (
+            <Application key={application.id} application={application} />
+          ))}
+      </div>
     </div>
   );
 };

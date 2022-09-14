@@ -20,21 +20,16 @@ The `pages/` directory (except `pages/api`, see below) refers to pages in the we
 
 The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
 
+Tip: In the bottom right corner of the application, there's a ReactQuery icon. These are the [ReactQuery DevTools](https://react-query-v3.tanstack.com/devtools) and are very helpful to observe the states of your API calls.
+
 ## Tasks
 
-1. TODO Add tasks
+1. Utilize the `useGetPaginatedApplications` hook in `pages/application/index.tsx` and use the pagination hook to enable pagination of the results.
+2. Impl. a similar query function and hook to support sorting by the `?sort=prop` query param, where `prop` can be one of `[namespace,name,state]`. Determin one of these to use.
+   1. [OPTIONAL]: Impl. a user interface to be able to toggle which property to sort by.
+3. Impl. the /errors page using ReactQuery to get the errors from the API. See the /applications page for inspiration.
+4. Impl. the /dashboard page, which uses _both_ the applications and errors endpoint to show a summary of all available entities. Feel free to use pagination or sorting as you wish, or not at all.
 
-## Learn More
+## Resources
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+- In-depth discussion and explanation of ReactQuery's QueryContext: https://tkdodo.eu/blog/leveraging-the-query-function-context

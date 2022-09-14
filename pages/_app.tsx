@@ -4,9 +4,10 @@ import styles from "./Layout.module.css";
 import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
+import { ReactQueryProvider } from "../src/common/providers/ReactQueryProvider/ReactQueryProvider";
 
-function MyApp({ Component, pageProps }: AppProps) {
-  return (
+const App = ({ Component, pageProps }: AppProps) => (
+  <ReactQueryProvider>
     <div>
       <Head>
         <title>TypeScript Thursdag: ReactQuery</title>
@@ -70,7 +71,7 @@ function MyApp({ Component, pageProps }: AppProps) {
         </a>
       </footer>
     </div>
-  );
-}
+  </ReactQueryProvider>
+);
 
-export default MyApp;
+export default App;
