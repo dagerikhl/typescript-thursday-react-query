@@ -1,4 +1,4 @@
-# TypeScript Thursdag: ReactQuery
+# TypeScript Thursday: ReactQuery
 
 TypeScript + ReactQuery workshop
 
